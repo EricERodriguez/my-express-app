@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const userRoutes = require('./routes/userRoutes');
 
 dotenv.config();
 
@@ -21,15 +22,7 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {
     .then(() => console.log('Connected to the database'))
     .catch((error) => console.error('Database connection error:', error));
 
-// Basic route
-app.get('/', (req, res) =>
-{
-    res.send('Hello World!');
-});
+// Routes
+app.use('/api/users', userRoutes);
 
-// Server listening
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () =>
-{
-    console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;
