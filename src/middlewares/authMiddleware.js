@@ -7,7 +7,7 @@ const authMiddleware = (req, res, next) =>
         return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
     try {
-        const decoded = verifyToken(token);
+        const decoded = verifyToken(token.split(' ')[1]);
         req.user = decoded;
         next();
     } catch (err) {
